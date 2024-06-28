@@ -111,7 +111,7 @@ jobs:
       - run: git tag
       - run: git log
       - name: Generate changelog
-        run: echo "# TODO" > ${{ github.workspace }}-CHANGELOG.txt
+        run: cz changelog --incremental --dry-run > ${{ github.workspace }}-CHANGELOG.txt
       - name: build
         run: python -m build
       - name: show dist
