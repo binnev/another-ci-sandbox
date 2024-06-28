@@ -1,3 +1,13 @@
+## 0.10.0 (2024-06-28)
+
+### Feat
+
+- try different action?
+
+### Fix
+
+- maybe just trailing slash?
+
 ## 0.9.10 (2024-06-28)
 
 ### Fix
