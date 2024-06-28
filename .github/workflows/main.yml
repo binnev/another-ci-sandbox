@@ -94,24 +94,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  build_release:
-    name: Create Release
-    needs: bumpver
-    if: needs.bumpver.outputs.version_after != needs.bumpver.outputs.version_before
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # hopefully fetches bump commit also
-      - run: git log
-      - name: Generate changelog
-        run: echo "# TODO" > ${{ github.workspace }}-CHANGELOG.txt
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
-          files: |
-            Release.txt
