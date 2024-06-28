@@ -15,7 +15,7 @@ jobs:
   build_release:
     name: Create Release
     needs: bumpver
-    if: needs.bumpver.outputs.version_after != needs.bumpver.outputs.version_before
+#    if: needs.bumpver.outputs.version_after != needs.bumpver.outputs.version_before
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
