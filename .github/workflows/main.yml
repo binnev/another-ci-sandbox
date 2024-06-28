@@ -108,7 +108,9 @@ jobs:
           fetch-depth: 0
       - run: pip install build commitizen
       - name: Generate changelog
-        run: cz changelog --incremental --dry-run > ${{ github.workspace }}-CHANGELOG.txt
+        run: |
+          cz changelog --incremental --dry-run > ${{ github.workspace }}-CHANGELOG.txt
+          cat ${{ github.workspace }}-CHANGELOG.txt
       - run: git pull # hopefully fetches bump commit also
       - run: git tag
       - run: git log
@@ -123,4 +125,5 @@ jobs:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           files: |
             Release.txt
+            dist/foo-${{ needs.bumpver.outputs.version_after }}-py3-none-any.whl
           tag_name: ${{ needs.bumpver.outputs.version_after }}
