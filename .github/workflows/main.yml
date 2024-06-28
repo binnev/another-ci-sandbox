@@ -111,6 +111,8 @@ jobs:
         run: echo "# TODO" > ${{ github.workspace }}-CHANGELOG.txt
       - name: build
         run: python -m build
+        env:
+          PAGKAGE_VERSION: ${{ needs.bumpver.outputs.version_after }}
       - name: show dist
         run: ls dist
 #      - name: Create release
