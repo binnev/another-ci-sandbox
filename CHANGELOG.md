@@ -1,3 +1,10 @@
+## 0.9.4 (2024-06-28)
+
+### Fix
+
+- remove "unrelease" from changelog
+- delete Release.txt
+
 ## 0.9.3 (2024-06-28)
 
 ### Fix
