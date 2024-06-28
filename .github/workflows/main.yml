@@ -100,6 +100,7 @@ jobs:
     needs: bumpver
     if: needs.bumpver.outputs.version_after != needs.bumpver.outputs.version_before
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
