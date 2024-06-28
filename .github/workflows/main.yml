@@ -74,8 +74,8 @@ jobs:
           git config user.email "noreply@github.com"
           pip install mkdocs mike commitizen 
           VER=$(cz version --project) 
-          mike deploy $VER latest --update-aliases --push 
-          mike set-default latest
+          mike deploy $VER latest --update-aliases 
+          mike set-default latest --push
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
