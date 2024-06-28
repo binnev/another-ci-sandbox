@@ -104,9 +104,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # hopefully fetches bump commit also
+          fetch-depth: 0
       - run: pip install build
-      - run: git checkout HEAD
+      - run: git pull # hopefully fetches bump commit also
       - run: git log
       - name: Generate changelog
         run: echo "# TODO" > ${{ github.workspace }}-CHANGELOG.txt
