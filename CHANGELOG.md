@@ -1,3 +1,13 @@
+## 0.7.0 (2024-06-28)
+
+### Feat
+
+- actually upload release
+
+### Fix
+
+- wheel path
+
 ## 0.6.4 (2024-06-28)
 
 ### Fix
