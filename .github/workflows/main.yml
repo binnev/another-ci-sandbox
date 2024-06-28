@@ -79,22 +79,26 @@ jobs:
 
       - run: ls site
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: JamesIves/github-pages-deploy-action@v4.6.1
         with:
-          path: site/
+          branch: gh-pages
+          folder: site
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: site/
 
-  # Deployment job
-  deploy_docs:
-    needs: build_docs
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#  # Deployment job
+#  deploy_docs:
+#    needs: build_docs
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
 
   build_release:
     name: Create Release
