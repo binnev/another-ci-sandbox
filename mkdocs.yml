@@ -1,0 +1,8 @@
+site_name: foo
+plugins:
+  - mike
+
+
+extra:
+  version:
+    provider: mike
