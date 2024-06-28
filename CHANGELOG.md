@@ -1,3 +1,10 @@
+## 0.9.8 (2024-06-28)
+
+### Fix
+
+- push after set latest
+- rename bumpver->bump
+
 ## 0.9.7 (2024-06-28)
 
 ### Fix
