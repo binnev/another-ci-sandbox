@@ -114,9 +114,10 @@ jobs:
         run: python -m build
       - name: show dist
         run: ls dist
-      - name: Create release
-        run: |
-          gh release upload ${{ needs.bumpver.outputs.version_after }} foo-${{ needs.bumpver.outputs.version_after }}-py3-none-any.whl
-        env:
-          GH_TOKEN: ${{ github.token }}
-        working-directory: dist/
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          files: |
+            Release.txt
