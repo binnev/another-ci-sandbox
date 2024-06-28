@@ -106,7 +106,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: pip install build
+      - run: pip install build commitizen
       - run: git pull # hopefully fetches bump commit also
       - run: git tag
       - run: git log
