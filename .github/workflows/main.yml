@@ -114,6 +114,6 @@ jobs:
         run: python -m build
       - name: show dist
         run: ls dist
-#      - name: Create release
-#        run: |
-#          gh release upload ${{ needs.bumpver.outputs.version_after }}
+      - name: Create release
+        run: |
+          gh release upload ${{ needs.bumpver.outputs.version_after }}
