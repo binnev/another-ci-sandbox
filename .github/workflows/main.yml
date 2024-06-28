@@ -107,6 +107,7 @@ jobs:
           fetch-depth: 0
       - run: pip install build
       - run: git pull # hopefully fetches bump commit also
+      - run: git tag
       - run: git log
       - name: Generate changelog
         run: echo "# TODO" > ${{ github.workspace }}-CHANGELOG.txt
