@@ -77,6 +77,8 @@ jobs:
           mike deploy $VER latest --update-aliases 
           mike set-default latest --push
 
+      - run: ls site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
