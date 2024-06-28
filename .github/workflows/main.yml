@@ -107,11 +107,11 @@ jobs:
         with:
           fetch-depth: 0
       - run: pip install build commitizen
+      - name: Generate changelog
+        run: cz changelog --incremental --dry-run > ${{ github.workspace }}-CHANGELOG.txt
       - run: git pull # hopefully fetches bump commit also
       - run: git tag
       - run: git log
-      - name: Generate changelog
-        run: cz changelog --incremental --dry-run > ${{ github.workspace }}-CHANGELOG.txt
       - name: build
         run: python -m build
       - name: show dist
