@@ -122,3 +122,4 @@ jobs:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           files: |
             Release.txt
+          tag_name: ${{ needs.bumpver.outputs.version_after }}
