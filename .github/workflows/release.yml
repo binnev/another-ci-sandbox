@@ -3,7 +3,7 @@ name: main-pr-merge
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - '*.*.*'
 
 permissions:
   contents: read
