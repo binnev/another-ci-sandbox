@@ -12,7 +12,7 @@ permissions:
   deployments: write
 
 jobs:
-  bumpver:
+  bump:
     permissions: write-all
     # if the last commit message is a version bump, don't run
     # this action.
@@ -55,9 +55,8 @@ jobs:
       version_after: ${{ steps.version_after.outputs.version }}
       # todo: calculate bump size (major/minor/patch) and output it
 
-  # Build job
   build_docs:
-    needs: bumpver
+    needs: bump
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
@@ -97,8 +96,8 @@ jobs:
 
   build_release:
     name: Create Release
-    needs: bumpver
-    if: needs.bumpver.outputs.version_after != needs.bumpver.outputs.version_before
+    needs: bump
+    if: needs.bump.outputs.version_after != needs.bump.outputs.version_before
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -111,7 +110,7 @@ jobs:
         run: |
           cz changelog \
             --incremental \
-            --unreleased-version ${{ needs.bumpver.outputs.version_after }} \
+            --unreleased-version ${{ needs.bump.outputs.version_after }} \
             --dry-run \
             > ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
@@ -128,5 +127,5 @@ jobs:
         with:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
           files: |
-            dist/foo-${{ needs.bumpver.outputs.version_after }}-py3-none-any.whl
-          tag_name: ${{ needs.bumpver.outputs.version_after }}
+            dist/foo-${{ needs.bump.outputs.version_after }}-py3-none-any.whl
+          tag_name: ${{ needs.bump.outputs.version_after }}
