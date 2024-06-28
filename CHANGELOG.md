@@ -1,3 +1,9 @@
+## 0.5.1 (2024-06-28)
+
+### Fix
+
+- fix deployment permissions
+
 ## 0.5.0 (2024-06-28)
 
 ### Feat
