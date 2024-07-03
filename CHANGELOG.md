@@ -1,3 +1,9 @@
+## 0.11.3 (2024-07-03)
+
+### Fix
+
+- even simpler changelog command
+
 ## 0.11.2 (2024-07-03)
 
 ### Fix
