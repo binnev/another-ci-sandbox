@@ -1,3 +1,9 @@
+## 0.12.6 (2024-07-03)
+
+### Fix
+
+- what does mike list show in the cloud?
+
 ## 0.12.5 (2024-07-03)
 
 ### Fix
