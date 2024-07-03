@@ -77,6 +77,8 @@ jobs:
           mike deploy $VER latest --update-aliases 
           mike set-default latest --push
 
+      - run: mike list
+
       - run: ls site
 
       - uses: JamesIves/github-pages-deploy-action@v4.6.1
