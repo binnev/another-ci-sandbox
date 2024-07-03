@@ -113,11 +113,8 @@ jobs:
       - run: pip install build commitizen
       - name: Generate changelog
         run: |
-          cz changelog \
-            --incremental \
-            --unreleased-version "" \
-            --dry-run \
-            > ${{ github.workspace }}-CHANGELOG.txt
+          cz changelog ${{ needs.bump.outputs.version_after }} \
+            --dry-run > ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
       - run: git pull # hopefully fetches bump commit also
       - run: git tag
