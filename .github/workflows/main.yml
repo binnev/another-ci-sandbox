@@ -113,16 +113,15 @@ jobs:
       - run: pip install build commitizen
       - name: Generate changelog
         run: |
-          cz changelog ${{ needs.bump.outputs.version_after }} \
-            --file-name ${{ github.workspace }}-CHANGELOG.txt
+          cz changelog ${{ needs.bump.outputs.version_after }} --file-name ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
-      - run: git pull # hopefully fetches bump commit also
-      - run: git tag
-      - run: git log
+#      - run: git pull # hopefully fetches bump commit also
+#      - run: git tag
+#      - run: git log
       - name: build
         run: python -m build
-      - name: show dist
-        run: ls dist
+#      - name: show dist
+#        run: ls dist
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
