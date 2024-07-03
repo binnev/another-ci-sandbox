@@ -116,7 +116,7 @@ jobs:
           cz changelog ${{ needs.bump.outputs.version_after }} \
             --dry-run > ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
-#      - run: git pull # hopefully fetches bump commit also
+      - run: git pull # hopefully fetches bump commit also
 #      - run: git tag
 #      - run: git log
       - name: build
