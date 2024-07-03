@@ -115,7 +115,7 @@ jobs:
         run: |
           cz changelog ${{ needs.bump.outputs.version_after }} \
             --template CHANGELOG.md.j2 \
-            --file-name ${{ github.workspace }}-CHANGELOG.txt
+            --dry-run > ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
 #      - run: git pull # hopefully fetches bump commit also
 #      - run: git tag
