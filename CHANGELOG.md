@@ -1,3 +1,9 @@
+## 0.11.1 (2024-07-03)
+
+### Fix
+
+- trying empty version title
+
 ## 0.11.0 (2024-07-03)
 
 ### Feat
