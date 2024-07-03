@@ -117,8 +117,6 @@ jobs:
             --dry-run > ${{ github.workspace }}-CHANGELOG.txt
           cat ${{ github.workspace }}-CHANGELOG.txt
       - run: git pull # hopefully fetches bump commit also
-#      - run: git tag
-#      - run: git log
       - name: build
         run: python -m build
       - name: show dist
