@@ -12,58 +12,12 @@ permissions:
   deployments: write
 
 jobs:
-  bump:
-    permissions: write-all
-    # if the last commit message is a version bump, don't run
-    # this action.
-    if: ${{ !startsWith(github.event.head_commit.message, 'bump:') }}
-    runs-on: ubuntu-latest
-    name: Bump version
-
-    steps:
-      - uses: actions/checkout@v4
-        # This is necessary for commitizen to see the previous commits,
-        # which is what it uses to calculate the version bump.
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-      - run: pip install commitizen
-      - name: Get version before bump
-        id: version_before
-        run: |
-          echo version_before was $(cz version --project)
-          echo "version=$(cz version --project)" >> "$GITHUB_OUTPUT"
-      - name: Create bump and changelog
-        uses: commitizen-tools/commitizen-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get version after bump
-        id: version_after
-        run: |
-          echo version_after was $(cz version --project)
-          echo "version=$(cz version --project)" >> "$GITHUB_OUTPUT"
-      - name: Print Version
-        run: echo "Bumped from version
-          ${{ steps.version_before.outputs.version }} to
-          ${{ steps.version_after.outputs.version }}"
-
-    outputs:
-      version_before: ${{ steps.version_before.outputs.version }}
-      version_after: ${{ steps.version_after.outputs.version }}
-      # todo: calculate bump size (major/minor/patch) and output it
-
   build_docs:
-    needs: bump
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -85,49 +39,4 @@ jobs:
         with:
           branch: gh-pages
           folder: site
-#      - name: Upload artifact
-#        uses: actions/upload-pages-artifact@v3
-#        with:
-#          path: site/
-#  # Deployment job
-#  deploy_docs:
-#    needs: build_docs
-#    environment:
-#      name: github-pages
-#      url: ${{ steps.deployment.outputs.page_url }}
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v4
 
-  build_release:
-    name: Create Release
-    needs: bump
-    if: needs.bump.outputs.version_after != needs.bump.outputs.version_before
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - run: pip install build commitizen
-      - name: Generate changelog
-        run: |
-          cz changelog ${{ needs.bump.outputs.version_after }} \
-            --dry-run > ${{ github.workspace }}-CHANGELOG.txt
-          cat ${{ github.workspace }}-CHANGELOG.txt
-      - run: git pull # hopefully fetches bump commit also
-      - name: build
-        run: python -m build
-      - name: show dist
-        run: ls dist
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
-          files: |
-            dist/foo-${{ needs.bump.outputs.version_after }}-py3-none-any.whl
-          tag_name: ${{ needs.bump.outputs.version_after }}

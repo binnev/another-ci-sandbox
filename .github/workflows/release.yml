@@ -1,0 +1,44 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  deployments: write
+
+jobs:
+  build_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+      - run: pip install build commitizen
+      - name: Generate changelog
+        run: |
+          tag=${{ github.ref }} \
+          echo $tag \
+          cz changelog $tag \
+            --dry-run > ${{ github.workspace }}-CHANGELOG.txt
+          cat ${{ github.workspace }}-CHANGELOG.txt
+#      - run: git pull # hopefully fetches bump commit also
+      - name: build
+        run: python -m build
+      - name: show dist
+        run: ls dist
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          files: |
+            dist/foo-${{ needs.bump.outputs.version_after }}-py3-none-any.whl
+          tag_name: ${{ needs.bump.outputs.version_after }}
