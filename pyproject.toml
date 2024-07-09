@@ -1,6 +1,6 @@
 [project]
 name = "foo"
-version = "0.12.8"
+version = "0.12.9"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
